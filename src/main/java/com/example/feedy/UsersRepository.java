@@ -17,8 +17,30 @@ public class UsersRepository {
         }
     }
 
+    //the login function will return a boolean value
+    public boolean login(String username, String password) {
+        if (connection != null) {
+            String requete = "select * from users where username=? and password=?";
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(requete);
+                preparedStatement.setString(1, username);
+                preparedStatement.setString(2, password);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    System.out.println("user found");
+                    return true;
+                } else {
+                    System.out.println("user not found");
+                    return false;
+                }
+            } catch (SQLException e) {
+                System.out.println("error while login : " + e.getMessage());
+            }
+        }
+        return false;
+    }
 
-    public int createUser(String username, String email, String password, String profile_picture, String bio) {
+    public int register(String username, String email, String password, String profile_picture, String bio) {
         if (connection != null) {
             String requete = "insert into users(username, password, email, profile_picture, bio) values(?,?,?,?,?)";
             try {
@@ -88,7 +110,7 @@ public class UsersRepository {
         UsersRepository usersRepository = new UsersRepository();
 
         //----------creating a user
-        //usersRepository.createUser("jacer", "jacerchetoui17@gmail.com", "123456", "https://www.google.com", "I am a student and I am the maker of this application");
+        //usersRepository.register("jacer", "jacerchetoui17@gmail.com", "123456", "https://www.google.com", "I am a student and I am the maker of this application");
 
         //----------searching a user by username
         /*ResultSet resultSet = usersRepository.searchUser("jac");
