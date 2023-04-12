@@ -1,4 +1,6 @@
-package com.example.feedy;
+package com.example.feedy.repositories;
+
+import com.example.feedy.MyConnexion;
 
 import java.sql.*;
 
