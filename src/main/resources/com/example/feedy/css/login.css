@@ -1,0 +1,75 @@
+
+
+/*left pane*/
+
+.title {
+    -fx-font-size: 30px;
+    -fx-text-fill: #fff;
+    -fx-font-weight: 600;
+}
+
+.left_pane {
+    -fx-background-color: #03A9F4;
+    -fx-background-radius:   0 15px 15px 0;
+}
+
+/* main pane */
+
+.main_pane {
+    -fx-background-color: #fff;
+}
+
+.input_field {
+    -fx-background-color: #fefefe;
+    -fx-border-radius: 5px;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-padding: 5px;
+    -fx-font-size: 12px;
+}
+
+.login_link {
+    -fx-font-family: sans-serif;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 0;
+    -fx-width: fit-content;
+    -fx-border-color: #5bc0f6;
+    -fx-border-width: 0 0 3px 0;
+}
+
+.signup_link {
+    -fx-font-family: sans-serif;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 0;
+    -fx-width: fit-content;
+    -fx-text-fill: #999;
+}
+
+.signup_link:hover {
+    -fx-text-fill: #5bc0f6;
+    -fx-cursor: hand;
+}
+
+.register_link  {
+    -fx-text-fill: #5bc0f6;
+}
+
+.register_link:hover  {
+    -fx-text-fill: #5bc0f6;
+    -fx-cursor: hand;
+}
+
+
+.loginbtn {
+    -fx-padding: 7px 20px;
+    -fx-pref-width: 217px;
+    -fx-alignment: center;
+    -fx-background-radius: 16px;
+    -fx-background-color: #5bc0f6;
+    -fx-text-fill: #fff;
+    -fx-border-color: transparent;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}

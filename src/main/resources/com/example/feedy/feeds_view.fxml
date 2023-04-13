@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -7,24 +8,26 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.feedy.controllers.FeedsController">
-   <children>
-      <Label layoutX="71.0" layoutY="23.0" prefHeight="30.0" prefWidth="96.0" text="ISSATCO">
-         <font>
-            <Font name="Microsoft YaHei Light" size="17.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="46.0" fitWidth="32.0" layoutX="33.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/twitter.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="265.0" layoutY="163.0" prefHeight="30.0" prefWidth="96.0" text="FEEDS">
-         <font>
-            <Font name="Microsoft YaHei Light" size="17.0" />
-         </font>
-      </Label>
-      <Button layoutX="515.0" layoutY="22.0" mnemonicParsing="false" style="-fx-background-color: #d72121;" text="Logout" textFill="WHITE" />
-   </children>
+    <children>
+        <Label layoutX="71.0" layoutY="23.0" prefHeight="30.0" prefWidth="96.0" text="ISSATCO">
+            <font>
+                <Font name="Microsoft YaHei Light" size="17.0" />
+            </font>
+        </Label>
+        <ImageView fitHeight="46.0" fitWidth="32.0" layoutX="33.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/twitter.png" />
+            </image>
+        </ImageView>
+        <Label layoutX="241.0" layoutY="161.0" prefHeight="30.0" prefWidth="96.0" styleClass="title" text="FEEDS">
+            <font>
+                <Font name="Microsoft YaHei Light" size="17.0" />
+            </font>
+        </Label>
+        <Button layoutX="515.0" layoutY="22.0" mnemonicParsing="false" styleClass="logoutbtn" text="Logout" textFill="WHITE" />
+    </children>
+    <stylesheets>
+        <URL value="@css/feeds.css" />
+    </stylesheets>
 </AnchorPane>
