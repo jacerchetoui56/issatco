@@ -18,13 +18,13 @@
             <TextField layoutX="45.0" layoutY="193.0" prefHeight="32.0" prefWidth="217.0" promptText="Enter your password" styleClass="input_field" />
             <Label layoutX="201.0" layoutY="323.0" styleClass="register_link" text="Register" underline="true" />
             <Label layoutX="45.0" layoutY="324.0" text="You don't have an account ?" textFill="#656565" />
-            <Button layoutX="45.0" layoutY="260.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="217.0" styleClass="loginbtn" text="LOGIN">
+            <Button layoutX="45.0" layoutY="260.0" mnemonicParsing="false" onAction="#login" prefHeight="33.0" prefWidth="217.0" styleClass="loginbtn" text="LOGIN">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
             <Label layoutX="54.0" layoutY="11.0" prefHeight="39.0" prefWidth="43.0" styleClass="login_link" text="Login" />
-            <Label layoutX="115.0" layoutY="11.0" styleClass="signup_link" text="Sign Up" />
+            <Label fx:id="signupLink" layoutX="115.0" layoutY="11.0" onMouseClicked="#openRegisterPage" styleClass="signup_link" text="Sign Up" />
          </children>
       </Pane>
       <Pane prefHeight="450.0" prefWidth="306.0" styleClass="left_pane">

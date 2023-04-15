@@ -9,4 +9,5 @@ module com.example.feedy {
     exports com.example.feedy.repositories;
     exports com.example.feedy.controllers;
     opens com.example.feedy.repositories to javafx.fxml;
+    opens com.example.feedy.controllers to javafx.fxml;
 }

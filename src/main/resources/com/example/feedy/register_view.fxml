@@ -23,7 +23,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Label layoutX="54.0" layoutY="8.0" prefHeight="39.0" prefWidth="43.0" styleClass="login_link" text="Login" />
+            <Label fx:id="loginLink" layoutX="54.0" layoutY="8.0" onMouseClicked="#openLoginPage" prefHeight="39.0" prefWidth="43.0" styleClass="login_link" text="Login" />
             <Label layoutX="115.0" layoutY="8.0" styleClass="signup_link" text="Sign Up" />
             <TextField layoutX="45.0" layoutY="186.0" prefHeight="32.0" prefWidth="217.0" promptText="Enter your password" styleClass="input_field" />
             <TextField layoutX="45.0" layoutY="229.0" prefHeight="32.0" prefWidth="217.0" promptText="Enter your Bio" styleClass="input_field" />
