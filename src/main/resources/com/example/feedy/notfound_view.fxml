@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.feedy.controllers.NotFoundController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="206.0" layoutY="111.0" prefHeight="64.0" prefWidth="189.0" text="404, Page Not Found!">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Button fx:id="backToHomeButton" layoutX="241.0" layoutY="236.0" mnemonicParsing="false" onAction="#goToHomePage" text="Back to Home Page" />
+   </children>
+</AnchorPane>

@@ -12,7 +12,7 @@ public class PostRepository {
     Connection connection = null;
     Statement statement = null;
 
-    PostRepository() {
+    public PostRepository() {
         connection = MyConnexion.connect();
         if (connection != null) {
             try {
@@ -23,12 +23,12 @@ public class PostRepository {
         }
     }
 
-    public int createPost(String user_id, String postText){
+    public int createPost(int user_id, String postText){
         if (connection != null) {
             String requete = "insert into posts(user_id, body) values(?,?)";
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement(requete);
-                preparedStatement.setString(1, user_id);
+                preparedStatement.setInt(1, user_id);
                 preparedStatement.setString(2, postText);
                 System.out.println("post created with success");
                 return preparedStatement.executeUpdate();

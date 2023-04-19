@@ -1,5 +1,6 @@
 package com.example.feedy.repositories;
 
+import com.example.feedy.AppState;
 import com.example.feedy.MyConnexion;
 
 import java.sql.*;
@@ -8,7 +9,7 @@ public class UsersRepository {
     Connection connection = null;
     Statement statement = null;
 
-    UsersRepository() {
+    public UsersRepository() {
         connection = MyConnexion.connect();
         if (connection != null) {
             try {
@@ -20,16 +21,20 @@ public class UsersRepository {
     }
 
     //the login function will return a boolean value
-    public boolean login(String username, String password) {
+    public boolean login(String email, String password) {
         if (connection != null) {
-            String requete = "select * from users where username=? and password=?";
+            String requete = "select * from users where email=? and password=?";
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement(requete);
-                preparedStatement.setString(1, username);
+                preparedStatement.setString(1, email);
                 preparedStatement.setString(2, password);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if (resultSet.next()) {
+                ResultSet result = preparedStatement.executeQuery();
+                if (result.next()) {
                     System.out.println("user found");
+                    //getting the user id from the database
+                    int id = result.getInt("id");
+                    AppState.stateLogin(id);
+
                     return true;
                 } else {
                     System.out.println("user not found");
@@ -44,7 +49,7 @@ public class UsersRepository {
 
     public int register(String username, String email, String password, String profile_picture, String bio) {
         if (connection != null) {
-            String requete = "insert into users(username, password, email, profile_picture, bio) values(?,?,?,?,?)";
+            String requete = "insert into users(username, email, password, profile_picture, bio) values(?,?,?,?,?)";
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement(requete);
                 preparedStatement.setString(1, username);
@@ -53,7 +58,15 @@ public class UsersRepository {
                 preparedStatement.setString(4, profile_picture);
                 preparedStatement.setString(5, bio);
                 System.out.println(username + " created with success");
-                return preparedStatement.executeUpdate();
+                int result = preparedStatement.executeUpdate();
+                ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+                //getting the user id
+                if (generatedKeys.next()) {
+                    int id = generatedKeys.getInt(1);
+                    AppState.stateLogin(id);
+                }
+
+                return result;
             } catch (SQLException e) {
                 System.out.println("error while creating user : " + e.getMessage());
             }
@@ -76,12 +89,12 @@ public class UsersRepository {
         return 0;
     }
 
-    public ResultSet getUser(int id) {
+    public ResultSet getUser(String email) {
         if (connection != null) {
-            String requete = "select * from users where id=?";
+            String requete = "select * from users where email=?";
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement(requete);
-                preparedStatement.setInt(1, id);
+                preparedStatement.setString(1, email);
                 System.out.println("User found");
                 return preparedStatement.executeQuery();
             } catch (SQLException e) {
@@ -112,7 +125,7 @@ public class UsersRepository {
         UsersRepository usersRepository = new UsersRepository();
 
         //----------creating a user
-        //usersRepository.register("jacer", "jacerchetoui17@gmail.com", "123456", "https://www.google.com", "I am a student and I am the maker of this application");
+//        usersRepository.register("souhail", "souhailabdallah@gmail.com", "souhailpass", "https://www.google.com", "I am Souhail and I am Jacer's friend");
 
         //----------searching a user by username
         /*ResultSet resultSet = usersRepository.searchUser("jac");
@@ -131,19 +144,19 @@ public class UsersRepository {
         */
 
         //----------getting the information of a user by id
-        ResultSet resultSet = usersRepository.getUser(114);
-         try {
-             while (resultSet.next()) {
-                 //print all the information if the user
-                 System.out.println(resultSet.getString("username"));
-                 System.out.println(resultSet.getString("email"));
-                 System.out.println(resultSet.getString("profile_picture"));
-                 System.out.println(resultSet.getString("bio"));
-             }
-
-         } catch (SQLException e) {
-             e.printStackTrace();
-         }
+//        ResultSet resultSet = usersRepository.getUser(114);
+//         try {
+//             while (resultSet.next()) {
+//                 //print all the information if the user
+//                 System.out.println(resultSet.getString("username"));
+//                 System.out.println(resultSet.getString("email"));
+//                 System.out.println(resultSet.getString("profile_picture"));
+//                 System.out.println(resultSet.getString("bio"));
+//             }
+//
+//         } catch (SQLException e) {
+//             e.printStackTrace();
+//         }
     }
 
 }

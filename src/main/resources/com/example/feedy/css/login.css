@@ -73,3 +73,8 @@
     -fx-font-size: 12px;
     -fx-font-weight: bold;
 }
+
+
+.error_message {
+    -fx-text-fill: #f00000;
+}
