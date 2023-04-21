@@ -6,6 +6,7 @@ package com.example.feedy;
 public class AppState {
     public static int currentUser = 0;
     public static int visitedUser = 0;
+    public static int postToUpdate = 0;
 
     public static void stateLogin(int userId){
         currentUser = userId;
@@ -17,5 +18,9 @@ public class AppState {
     public static void stateVisitedUser(int userId){
         visitedUser = userId;
         System.out.println("State Change: user " + visitedUser + " is now visited");
+    }
+    public static void statePostToUpdate(int postId){
+        postToUpdate = postId;
+        System.out.println("State Change: post " + postToUpdate + " is now updated");
     }
 }

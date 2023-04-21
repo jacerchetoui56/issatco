@@ -3,7 +3,9 @@ package com.example.feedy.controllers;
 import com.example.feedy.AppState;
 import com.example.feedy.Main;
 import com.example.feedy.Post;
+import com.example.feedy.User;
 import com.example.feedy.repositories.PostRepository;
+import com.example.feedy.repositories.UsersRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,32 +27,66 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 
-public class FeedsController implements Initializable {
+public class PersonalProfileController implements Initializable {
     private Parent root;
     private Stage stage;
     private Scene scene;
 
+    @FXML
+    private Label bioLabel;
 
     @FXML
-    private Button logoutButton;
+    private ImageView imageview;
+
     @FXML
     private ScrollPane postScrollPane;
 
     @FXML
-    void logout(ActionEvent event) {
-        AppState.stateLogout();
-        redirectToLoginPage();
-    }
+    private Label usernameLabel;
+
 
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-        //creating a Vbox to contain the posts
+        //setting the labels
+        UsersRepository usersRepository = new UsersRepository();
+        User user = usersRepository.getUser(AppState.currentUser);
+        usernameLabel.setText(user.username);
+        bioLabel.setText(user.bio);
+        File file = new File(user.profile_picture);
+        String localUrl = null;
+        try {
+            localUrl = file.toURI().toURL().toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        imageview.setImage(new Image(localUrl));
+
+        //adding the posts to the profile
+        intitiazePosts();
+    }
+    @FXML
+    void backToHome(ActionEvent event) {
+        try {
+            // Load the home view FXML file
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("feeds_view.fxml"));
+            root = loader.load();
+            // Create a new scene and set it on the stage
+            Scene homeViewScene = new Scene(root);
+            Stage currentStage = (Stage) usernameLabel.getScene().getWindow(); // get the current stage
+            currentStage.setScene(homeViewScene);
+            currentStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void intitiazePosts(){
         VBox allPostsContainer = new VBox();
         allPostsContainer.getStyleClass().add("all_posts_container");
-
         //making the items of the posts and adding them to the scroll pane
         PostRepository postRepository = new PostRepository();
-        List<Post> posts = postRepository.getAllPosts();
+        List<Post> posts = postRepository.getUserPosts(AppState.currentUser);
 
         for (Post post : posts){
             VBox postContainer = new VBox();
@@ -73,6 +109,7 @@ public class FeedsController implements Initializable {
             imageView.setFitWidth(50);
             imageView.setPreserveRatio(true);
             ownerContainer.getChildren().add(imageView);
+
             //making the vbox where the writer and the date go
             VBox writerContainer = new VBox();
             writerContainer.getStyleClass().add("post_writer_container");
@@ -86,33 +123,50 @@ public class FeedsController implements Initializable {
             writerContainer.getChildren().add(dateLabel);
             ownerContainer.getChildren().add(writerContainer);
 
-            //the name of the owner is a link to his profile
-            writerLabel.setOnMouseClicked(event -> {
-                openProfile(post.user.id);
-            });
-
             Label contentLabel = new Label(post.content);
             contentLabel.setWrapText(true);
             contentLabel.getStyleClass().add("post_content");
 
-            postContainer.getChildren().addAll( ownerContainer, contentLabel);
+            //adding two buttons: delete and modify icons at the bottom of the post
+            HBox buttonsContainer = new HBox();
+            buttonsContainer.getStyleClass().add("post_buttons_container");
+            buttonsContainer.setSpacing(10);
+            buttonsContainer.setPrefHeight(30);
+            buttonsContainer.setPrefWidth(100);
+            buttonsContainer.setPadding(new Insets(0, 0, 0, 10));
+            //adding the delete button
+            Button deleteButton = new Button("Delete");
+            deleteButton.getStyleClass().add("delete_button");
+            deleteButton.setOnAction(event -> {
+                postRepository.deletePost(post.id);
+                intitiazePosts();
+            });
+            Button modifyButton = new Button("Modify");
+            modifyButton.getStyleClass().add("modify_button");
+            modifyButton.setOnAction(event -> {
+                AppState.statePostToUpdate(post.id);
+                goToModifyPostPage();
+            });
+            buttonsContainer.getChildren().addAll(deleteButton, modifyButton);
+
+            //adding all the items of the post to the post container
+            postContainer.getChildren().addAll( ownerContainer, contentLabel, buttonsContainer);
             allPostsContainer.getChildren().add(postContainer);
         }
         postScrollPane.setContent(allPostsContainer);
         postScrollPane.setFitToWidth(true);
-        //sout the date to make sure to display the right format
-        System.out.println(posts.get(0).created_at);
     }
 
-    public void redirectToLoginPage(){
+
+    public void goToModifyPostPage(){
         try {
             // Load the home view FXML file
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("login_view.fxml"));
+            loader.setLocation(Main.class.getResource("update_post_view.fxml"));
             root = loader.load();
             // Create a new scene and set it on the stage
             Scene homeViewScene = new Scene(root);
-            Stage currentStage = (Stage) logoutButton.getScene().getWindow(); // get the current stage
+            Stage currentStage = (Stage) usernameLabel.getScene().getWindow(); // get the current stage
             currentStage.setScene(homeViewScene);
             currentStage.show();
         } catch (IOException e) {
@@ -121,55 +175,4 @@ public class FeedsController implements Initializable {
     }
 
 
-    public void openProfile(int id){
-        AppState.stateVisitedUser(id);
-        try {
-            // Load the home view FXML file
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("profile_view.fxml"));
-            root = loader.load();
-            // Create a new scene and set it on the stage
-            Scene homeViewScene = new Scene(root);
-            Stage currentStage = (Stage) logoutButton.getScene().getWindow(); // get the current stage
-            currentStage.setScene(homeViewScene);
-            currentStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    @FXML
-    void openCreatePostView(ActionEvent event) {
-        try {
-            // Load the home view FXML file
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("create_post_view.fxml"));
-            root = loader.load();
-            // Create a new scene and set it on the stage
-            Scene homeViewScene = new Scene(root);
-            Stage currentStage = (Stage) logoutButton.getScene().getWindow(); // get the current stage
-            currentStage.setScene(homeViewScene);
-            currentStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void openPesonalProfile(ActionEvent event) {
-        try {
-            // Load the home view FXML file
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("personal_profile_view.fxml"));
-            root = loader.load();
-            // Create a new scene and set it on the stage
-            Scene homeViewScene = new Scene(root);
-            Stage currentStage = (Stage) logoutButton.getScene().getWindow(); // get the current stage
-            currentStage.setScene(homeViewScene);
-            currentStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

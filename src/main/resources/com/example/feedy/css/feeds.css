@@ -12,27 +12,71 @@
     -fx-text-fill: #ffffff;
     -fx-font-size: 15px;
     -fx-font-weight: bold;
-    -fx-padding: 10px;
+    -fx-padding: 7px;
 }
 
+/*.post_container {*/
+/*    -fx-background-color: #ffffff;*/
+/*    -fx-padding: 10px;*/
+/*    -fx-border-color: #000000;*/
+/*    -fx-border-width: 1px;*/
+/*    -fx-border-radius: 5px;*/
+/*}*/
 .post_container {
     -fx-background-color: #ffffff;
+    -fx-background-radius: 5px;
     -fx-padding: 10px;
-    -fx-border-color: #000000;
-    -fx-border-width: 1px;
-    -fx-border-radius: 5px;
-}
+    /*-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0.5, 0, 0);*/
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.1, 0, 1);
 
+}
 .post_owner {
     -fx-font-size: 15px;
     -fx-font-weight: bold;
     -fx-text-fill: #000000;
+    -fx-cursor: hand;
+
 }
 
 .post_content {
     -fx-font-size: 15px;
+    -fx-padding: 15px 7px;
 }
 
 post_owner_container{
     -fx-padding: 10px;
+}
+
+.feed_container {
+    -fx-background-color: #fff;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+.all_posts_container{
+    -fx-background-color: #fff;
+}
+.new_post{
+    -fx-padding: 7px;
+    -fx-pref-width: 150px;
+    -fx-alignment: center;
+    /*-fx-background-radius: 16px;*/
+    -fx-background-color: #5bc0f6;
+    -fx-text-fill: #fff;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.all_container {
+    -fx-background-color: #fff;
+    -fx-padding: 0;
+}
+
+.profilebtn {
+    -fx-background-color: #339933;
+    -fx-text-fill: #fff;
+    -fx-font-weight: 600;
+    -fx-padding: 7px;
+    -fx-font-size: 15px;
+    -fx-cursor: hand;
 }

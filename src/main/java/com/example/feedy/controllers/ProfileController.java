@@ -84,6 +84,7 @@ public class ProfileController implements Initializable {
 
     void intitiazePosts(){
         VBox allPostsContainer = new VBox();
+        allPostsContainer.getStyleClass().add("all_posts_container");
         //making the items of the posts and adding them to the scroll pane
         PostRepository postRepository = new PostRepository();
         List<Post> posts = postRepository.getUserPosts(AppState.visitedUser);

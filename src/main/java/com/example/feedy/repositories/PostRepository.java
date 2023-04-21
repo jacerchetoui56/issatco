@@ -1,5 +1,6 @@
 package com.example.feedy.repositories;
 
+import com.example.feedy.AppState;
 import com.example.feedy.MyConnexion;
 import com.example.feedy.Post;
 import com.example.feedy.User;
@@ -42,12 +43,12 @@ public class PostRepository {
     }
 
     //deleting a post
-    public int deletePost(String post_id){
+    public int deletePost(int post_id){
         if (connection != null) {
             String requete = "delete from posts where id=?";
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement(requete);
-                preparedStatement.setString(1, post_id);
+                preparedStatement.setInt(1, post_id);
                 System.out.println("post deleted with success");
                 return preparedStatement.executeUpdate();
             } catch (SQLException e) {
@@ -58,13 +59,13 @@ public class PostRepository {
     }
 
     //updating a post
-    public int updatePost(String post_id, String postText){
+    public int updatePost(int post_id, String postText){
         if (connection != null) {
             String requete = "update posts set body=? where id=?";
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement(requete);
                 preparedStatement.setString(1, postText);
-                preparedStatement.setString(2, post_id);
+                preparedStatement.setInt(2, post_id);
                 System.out.println("post updated with success");
                 return preparedStatement.executeUpdate();
             } catch (SQLException e) {
@@ -77,9 +78,11 @@ public class PostRepository {
     public List<Post> getAllPosts(){
         List<Post> posts = new ArrayList<>();
         if (connection != null) {
-            String requete = "SELECT posts.id, posts.body, posts.created_at, users.id AS user_id, users.profile_picture, users.username FROM posts INNER JOIN users ON posts.user_id = users.id ORDER BY created_at DESC LIMIT 20";
+            //making sure to not show the posts of the current user
+            String requete = "SELECT posts.id, posts.body, posts.created_at, users.id AS user_id, users.profile_picture, users.username FROM posts INNER JOIN users ON posts.user_id = users.id WHERE posts.user_id != ? ORDER BY created_at DESC LIMIT 20";
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement(requete);
+                preparedStatement.setInt(1, AppState.currentUser);
                 ResultSet result = preparedStatement.executeQuery();
                 while (result.next()){
                     int id = result.getInt("id");

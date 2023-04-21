@@ -1,0 +1,14 @@
+.title {
+    -fx-font-size: 24px;
+    -fx-text-fill: #333;
+    -fx-font-weight: 600;
+}
+
+.button {
+    -fx-background-color: #888;
+    -fx-text-fill: #fff;
+    -fx-font-weight: 600;
+    -fx-padding: 7px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}

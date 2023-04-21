@@ -1,12 +1,9 @@
 
-
-
 .profile_username {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-text-fill: #000000;
 }
-
 
 .post_container {
     -fx-background-color: #ffffff;
@@ -55,4 +52,21 @@ post_owner_container {
 .all_container {
     -fx-background-color: #fff;
     -fx-padding: 0;
+}
+
+.delete_button {
+    -fx-background-color: #e60000;
+    -fx-text-fill: #fff;
+    -fx-font-weight: 600;
+    -fx-padding: 3px 7px;
+    -fx-font-size: 15px;
+    -fx-cursor: hand;
+}
+.modify_button {
+    -fx-background-color: #007300;
+    -fx-text-fill: #fff;
+    -fx-font-weight: 600;
+    -fx-padding: 3px 7px;
+    -fx-font-size: 15px;
+    -fx-cursor: hand;
 }
