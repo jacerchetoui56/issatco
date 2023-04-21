@@ -30,6 +30,7 @@
             <Label layoutX="54.0" layoutY="11.0" prefHeight="39.0" prefWidth="43.0" styleClass="login_link" text="Login" />
             <Label fx:id="signupLink" layoutX="115.0" layoutY="11.0" onMouseClicked="#openRegisterPage" styleClass="signup_link" text="Sign Up" />
             <Label fx:id="errorMessage" layoutX="45.0" layoutY="233.0" styleClass="error_message" />
+            <Label fx:id="loading" layoutX="45.0" layoutY="233.0" styleClass="loading" />
          </children>
       </Pane>
       <Pane prefHeight="450.0" prefWidth="306.0" styleClass="left_pane">

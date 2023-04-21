@@ -25,9 +25,10 @@ public class LoginController  implements Initializable {
     private TextField emailField;
     @FXML
     private TextField passwordField;
-
     @FXML
     private Label errorMessage;
+    @FXML
+    private Label loading;
 
     private Stage stage;
     private Scene scene;
@@ -93,6 +94,7 @@ public class LoginController  implements Initializable {
         if (usersRepository.login(email, password)) {
             System.out.println("login success");
             //redirecting the user to the feeds (home) page
+            loading.setText("Loading...");
             redirectToHome();
         }
         else {

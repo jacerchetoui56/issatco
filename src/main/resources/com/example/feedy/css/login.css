@@ -78,3 +78,8 @@
 .error_message {
     -fx-text-fill: #f00000;
 }
+
+.loading {
+    -fx-text-fill: #888;
+    -fx-font-size: 13px;
+}

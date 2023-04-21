@@ -2,8 +2,11 @@ package com.example.feedy.repositories;
 
 import com.example.feedy.AppState;
 import com.example.feedy.MyConnexion;
+import com.example.feedy.User;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsersRepository {
     Connection connection = null;
@@ -47,9 +50,9 @@ public class UsersRepository {
         return false;
     }
 
-    public int register(String username, String email, String password, String profile_picture, String bio) {
+    public int register(String username, String email, String password, String bio, String profile_picture) {
         if (connection != null) {
-            String requete = "insert into users(username, email, password, profile_picture, bio) values(?,?,?,?,?)";
+            String requete = "insert into users(username, email, password, bio, profile_picture) values(?,?,?,?,?)";
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement(requete);
                 preparedStatement.setString(1, username);
@@ -89,14 +92,21 @@ public class UsersRepository {
         return 0;
     }
 
-    public ResultSet getUser(String email) {
+    public User getUser(int userId) {
         if (connection != null) {
-            String requete = "select * from users where email=?";
+            String requete = "select * from users where id=?";
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement(requete);
-                preparedStatement.setString(1, email);
+                preparedStatement.setInt(1, userId);
                 System.out.println("User found");
-                return preparedStatement.executeQuery();
+                ResultSet result =  preparedStatement.executeQuery();
+                if(result.next()){
+                    int id = result.getInt("id");
+                    String username = result.getString("username");
+                    String bio = result.getString("bio");
+                    String profile_picture = result.getString("profile_picture");
+                    return new User(id, username, bio, profile_picture);
+                }
             } catch (SQLException e) {
                 System.out.println("error while finding user : " + e.getMessage());
             }
@@ -104,15 +114,25 @@ public class UsersRepository {
         return null;
     }
 
-    public ResultSet searchUser(String username) {
+    public List<User> searchUser(String searchName) {
+        List<User> usersList = new ArrayList<>();
         if (connection != null) {
             //it is enough if the name starts with the given string
             String requete = "select * from users where username like ?";
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement(requete);
-                preparedStatement.setString(1, username + "%");
+                preparedStatement.setString(1, searchName + "%");
                 System.out.println("User found");
-                return preparedStatement.executeQuery();
+                ResultSet result =  preparedStatement.executeQuery();
+                while(result.next()){
+                    int id = result.getInt("id");
+                    String username = result.getString("username");
+                    String bio = result.getString("bio");
+                    String profile_picture = result.getString("profile_picture");
+                    User user = new User(id, username, bio, profile_picture);
+                    usersList.add(user);
+                }
+                return usersList;
             } catch (SQLException e) {
                 System.out.println("error while searching user : " + e.getMessage());
             }
@@ -128,20 +148,11 @@ public class UsersRepository {
 //        usersRepository.register("souhail", "souhailabdallah@gmail.com", "souhailpass", "https://www.google.com", "I am Souhail and I am Jacer's friend");
 
         //----------searching a user by username
-        /*ResultSet resultSet = usersRepository.searchUser("jac");
-        try {
-            while (resultSet.next()) {
-                //print all the information if the user
-                System.out.println(resultSet.getString("username"));
-                System.out.println(resultSet.getString("email"));
-                System.out.println(resultSet.getString("profile_picture"));
-                System.out.println(resultSet.getString("bio"));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+        List<User> resultSet = usersRepository.searchUser("");
+        for (User user : resultSet) {
+            System.out.println(user );
         }
-        */
+
 
         //----------getting the information of a user by id
 //        ResultSet resultSet = usersRepository.getUser(114);
@@ -157,6 +168,8 @@ public class UsersRepository {
 //         } catch (SQLException e) {
 //             e.printStackTrace();
 //         }
+
+
     }
 
 }
