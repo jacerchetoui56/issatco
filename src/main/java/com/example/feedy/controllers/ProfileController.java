@@ -43,10 +43,12 @@ public class ProfileController implements Initializable {
     private ImageView imageview;
     @FXML
     private ScrollPane postScrollPane;
+    PostRepository postRepository = new PostRepository();
+    UsersRepository usersRepository = new UsersRepository();
+
 
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-        UsersRepository usersRepository = new UsersRepository();
         User user = usersRepository.getUser(AppState.visitedUser);
 
         //setting the labels
@@ -86,7 +88,6 @@ public class ProfileController implements Initializable {
         VBox allPostsContainer = new VBox();
         allPostsContainer.getStyleClass().add("all_posts_container");
         //making the items of the posts and adding them to the scroll pane
-        PostRepository postRepository = new PostRepository();
         List<Post> posts = postRepository.getUserPosts(AppState.visitedUser);
 
         for (Post post : posts){

@@ -35,6 +35,8 @@ public class FeedsController implements Initializable {
     private Button logoutButton;
     @FXML
     private ScrollPane postScrollPane;
+    PostRepository postRepository = new PostRepository();
+
 
     @FXML
     void logout(ActionEvent event) {
@@ -49,7 +51,6 @@ public class FeedsController implements Initializable {
         allPostsContainer.getStyleClass().add("all_posts_container");
 
         //making the items of the posts and adding them to the scroll pane
-        PostRepository postRepository = new PostRepository();
         List<Post> posts = postRepository.getAllPosts();
 
         for (Post post : posts){
@@ -100,8 +101,6 @@ public class FeedsController implements Initializable {
         }
         postScrollPane.setContent(allPostsContainer);
         postScrollPane.setFitToWidth(true);
-        //sout the date to make sure to display the right format
-        System.out.println(posts.get(0).created_at);
     }
 
     public void redirectToLoginPage(){
@@ -162,6 +161,23 @@ public class FeedsController implements Initializable {
             // Load the home view FXML file
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("personal_profile_view.fxml"));
+            root = loader.load();
+            // Create a new scene and set it on the stage
+            Scene homeViewScene = new Scene(root);
+            Stage currentStage = (Stage) logoutButton.getScene().getWindow(); // get the current stage
+            currentStage.setScene(homeViewScene);
+            currentStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void goToGroupChat(ActionEvent event) {
+        try {
+            // Load the home view FXML file
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("group_chat_view.fxml"));
             root = loader.load();
             // Create a new scene and set it on the stage
             Scene homeViewScene = new Scene(root);

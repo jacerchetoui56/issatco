@@ -8,10 +8,10 @@
 }
 
 .logoutbtn{
-    -fx-background-color: #ff0000;
+    -fx-background-color: #dc3545;
     -fx-text-fill: #ffffff;
     -fx-font-size: 15px;
-    -fx-font-weight: bold;
+    /*-fx-font-weight: bold;*/
     -fx-padding: 7px;
 }
 
@@ -35,6 +35,7 @@
     -fx-font-weight: bold;
     -fx-text-fill: #000000;
     -fx-cursor: hand;
+    -fx-padding: 0 0 10px 0;
 
 }
 
@@ -60,11 +61,11 @@ post_owner_container{
     -fx-pref-width: 150px;
     -fx-alignment: center;
     /*-fx-background-radius: 16px;*/
-    -fx-background-color: #5bc0f6;
+    -fx-background-color: #007bff;
     -fx-text-fill: #fff;
     -fx-border-color: transparent;
     -fx-font-size: 14px;
-    -fx-font-weight: bold;
+    /*-fx-font-weight: bold;*/
 }
 
 .all_container {
@@ -78,5 +79,14 @@ post_owner_container{
     -fx-font-weight: 600;
     -fx-padding: 7px;
     -fx-font-size: 15px;
+}
+
+.group_chat {
+    -fx-background-color: #ffc107;
+    -fx-text-fill: #212529;
+    -fx-font-weight: 600;
+    -fx-padding: 7px;
+    -fx-font-size: 15px;
     -fx-cursor: hand;
+
 }

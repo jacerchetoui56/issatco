@@ -33,6 +33,8 @@ public class LoginController  implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
+    UsersRepository usersRepository = new UsersRepository();
+
 
 
 
@@ -88,7 +90,6 @@ public class LoginController  implements Initializable {
 
     @FXML
     public void login(ActionEvent event) {
-        UsersRepository usersRepository = new UsersRepository();
         String email = emailField.getText();
         String password = passwordField.getText();
         if (usersRepository.login(email, password)) {

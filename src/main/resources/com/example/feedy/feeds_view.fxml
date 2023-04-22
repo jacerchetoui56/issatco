@@ -52,6 +52,11 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <Button layoutX="381.0" layoutY="20.0" mnemonicParsing="false" onAction="#goToGroupChat" styleClass="group_chat" text="Group Chat">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
     </children>
     <stylesheets>
         <URL value="@css/feeds.css" />

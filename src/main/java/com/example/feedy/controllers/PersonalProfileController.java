@@ -43,6 +43,8 @@ public class PersonalProfileController implements Initializable {
 
     @FXML
     private Label usernameLabel;
+    PostRepository postRepository = new PostRepository();
+
 
 
     @Override
@@ -85,7 +87,6 @@ public class PersonalProfileController implements Initializable {
         VBox allPostsContainer = new VBox();
         allPostsContainer.getStyleClass().add("all_posts_container");
         //making the items of the posts and adding them to the scroll pane
-        PostRepository postRepository = new PostRepository();
         List<Post> posts = postRepository.getUserPosts(AppState.currentUser);
 
         for (Post post : posts){

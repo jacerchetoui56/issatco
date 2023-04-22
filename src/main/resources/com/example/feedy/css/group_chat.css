@@ -1,0 +1,88 @@
+.all_container {
+    -fx-border-insets: 0;
+    -fx-background-color: #fff;
+}
+
+
+.sendbtn {
+    -fx-padding: 4px 12px;
+    /*-fx-pref-width: 70px;*/
+    -fx-alignment: center;
+    /*-fx-background-radius: 16px;*/
+    -fx-background-color: #007bff;
+    -fx-text-fill: #fff;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    /*-fx-font-weight: bold;*/
+}
+
+.input_field {
+    -fx-background-color: #fefefe;
+    -fx-border-radius: 5px;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-font-size: 15px;
+}
+
+.all_messages_container {
+    -fx-padding: 10px;
+    -fx-border-insets: 0;
+    -fx-background-color: #FBFBFB;
+}
+
+.message_block{
+    -fx-padding: 3px 0;
+    -fx-border-insets: 0;
+}
+
+.message_container_receiver {
+    -fx-background-color: #EEEEEE;
+    -fx-background-radius: 10px;
+    -fx-border-insets: 0;
+    /*-fx-pref-width: 270px;*/
+    -fx-padding: 5px;
+}
+.message_container_sender {
+    -fx-background-color: #0079F1;
+    -fx-background-radius: 10px;
+    -fx-border-insets: 0;
+    /*-fx-pref-width: 270px;*/
+    -fx-padding: 5px;
+}
+
+
+.sender {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-text-fill: #ffffff;
+}
+.receiver{
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-text-fill: #000000;
+}
+
+.date_sender {
+    -fx-font-size: 12px;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 0 0 0 20px;
+}
+.date_receiver {
+    -fx-font-size: 12px;
+    -fx-fill: #000000;
+    -fx-padding: 0 0 0 20px;
+}
+.message_receiver {
+    -fx-font-size: 15px;
+    -fx-padding: 3px 0;
+    -fx-fill: #000000;
+    -fx-wrap-text: true;
+}
+.message_sender {
+    -fx-font-size: 15px;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 3px 0;
+    -fx-wrap-text: true;
+}

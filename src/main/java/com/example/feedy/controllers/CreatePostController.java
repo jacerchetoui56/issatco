@@ -30,6 +30,8 @@ public class CreatePostController implements Initializable {
 
     @FXML
     private Label errorMessage;
+    PostRepository postRepository = new PostRepository();
+
 
 
     @Override
@@ -46,7 +48,6 @@ public class CreatePostController implements Initializable {
         System.out.println("creating the post with content: " + postContent);
 
         //adding the post to the DB
-        PostRepository postRepository = new PostRepository();
         int result = postRepository.createPost(AppState.currentUser, postContent);
         if (result == 0) {
             errorMessage.setText("Error: could not create the post");

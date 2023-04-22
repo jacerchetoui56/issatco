@@ -48,10 +48,10 @@ public class RegisterController {
 
     @FXML
     private Button signupButton;
+    UsersRepository usersRepository = new UsersRepository();
 
     @FXML
     void signup(ActionEvent event) {
-        UsersRepository usersRepository = new UsersRepository();
 //        getting the values
         String name = nameField.getText();
         String email = emailField.getText();

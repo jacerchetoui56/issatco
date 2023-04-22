@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="800.0" styleClass="all_container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.feedy.controllers.GroupChatController">
+
+    <stylesheets>
+        <URL value="@css/group_chat.css" />
+    </stylesheets>
+   <children>
+      <ScrollPane fx:id="messagesScrollPane" layoutY="57.0" prefHeight="396.0" prefWidth="800.0" style="-fx-background-color: #fff;">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="390.0" prefWidth="790.0" style="-fx-background-color: #fff;" />
+        </content>
+      </ScrollPane>
+      <Label layoutX="52.0" layoutY="15.0" onMouseClicked="#backToHome" prefHeight="30.0" prefWidth="96.0" text="ISSATCO">
+         <font>
+            <Font name="Microsoft YaHei Light" size="17.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <ImageView fitHeight="46.0" fitWidth="32.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/twitter.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="input_field" layoutX="14.0" layoutY="461.0" prefHeight="32.0" prefWidth="698.0" promptText="Ecrire..." styleClass="input_field" />
+      <Button layoutX="721.0" layoutY="462.0" mnemonicParsing="false" onAction="#sendMessage" styleClass="sendbtn" text="Send">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+</AnchorPane>

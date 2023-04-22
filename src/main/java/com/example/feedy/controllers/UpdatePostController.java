@@ -84,7 +84,8 @@ public class UpdatePostController implements Initializable {
     }
     @FXML
     void logout(ActionEvent event) {
-
+        AppState.stateLogout();
+        goToHomePage(null);
     }
 
 }

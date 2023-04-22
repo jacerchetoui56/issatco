@@ -78,7 +78,6 @@ public class PostRepository {
     public List<Post> getAllPosts(){
         List<Post> posts = new ArrayList<>();
         if (connection != null) {
-            //making sure to not show the posts of the current user
             String requete = "SELECT posts.id, posts.body, posts.created_at, users.id AS user_id, users.profile_picture, users.username FROM posts INNER JOIN users ON posts.user_id = users.id WHERE posts.user_id != ? ORDER BY created_at DESC LIMIT 20";
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement(requete);
@@ -96,7 +95,7 @@ public class PostRepository {
                     posts.add(post);
                 }
             } catch (SQLException e) {
-                System.out.println("error while getting all posts : " + e.getMessage());
+                System.out.println("error while getting all messages : " + e.getMessage());
             }
         }
         //returning an empty list if there is no connection
