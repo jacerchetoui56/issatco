@@ -1,5 +1,4 @@
 
-
 .title {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
@@ -7,7 +6,7 @@
     -fx-padding: 10px;
 }
 
-.logoutbtn{
+.logoutbtn {
     -fx-background-color: #dc3545;
     -fx-text-fill: #ffffff;
     -fx-font-size: 15px;
@@ -30,6 +29,7 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.1, 0, 1);
 
 }
+
 .post_owner {
     -fx-font-size: 15px;
     -fx-font-weight: bold;
@@ -44,7 +44,7 @@
     -fx-padding: 15px 7px;
 }
 
-post_owner_container{
+post_owner_container {
     -fx-padding: 10px;
 }
 
@@ -53,10 +53,12 @@ post_owner_container{
     -fx-background-insets: 0;
     -fx-padding: 0;
 }
-.all_posts_container{
+
+.all_posts_container {
     -fx-background-color: #fff;
 }
-.new_post{
+
+.new_post {
     -fx-padding: 7px;
     -fx-pref-width: 150px;
     -fx-alignment: center;
@@ -89,4 +91,18 @@ post_owner_container{
     -fx-font-size: 15px;
     -fx-cursor: hand;
 
+}
+
+.post_like {
+    -fx-background-color: #EEEEEE;
+    -fx-text-fill: #000;
+    -fx-padding: 7px;
+    -fx-font-size: 15px;
+    -fx-cursor: hand;
+}
+
+.post_like_count {
+    -fx-text-fill: #000;
+    -fx-padding: 7px 7px 7px 15px;
+    -fx-font-size: 15px;
 }

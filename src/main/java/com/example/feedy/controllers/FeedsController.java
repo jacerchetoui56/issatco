@@ -3,6 +3,7 @@ package com.example.feedy.controllers;
 import com.example.feedy.AppState;
 import com.example.feedy.Main;
 import com.example.feedy.Post;
+import com.example.feedy.repositories.LikesRepository;
 import com.example.feedy.repositories.PostRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,6 +37,7 @@ public class FeedsController implements Initializable {
     @FXML
     private ScrollPane postScrollPane;
     PostRepository postRepository = new PostRepository();
+    LikesRepository likesRepository = new LikesRepository();
 
 
     @FXML
@@ -53,7 +55,7 @@ public class FeedsController implements Initializable {
         //making the items of the posts and adding them to the scroll pane
         List<Post> posts = postRepository.getAllPosts();
 
-        for (Post post : posts){
+        for (Post post : posts) {
             VBox postContainer = new VBox();
             postContainer.getStyleClass().add("post_container");
             VBox.setMargin(postContainer, new Insets(5, 10, 5, 10));
@@ -96,14 +98,47 @@ public class FeedsController implements Initializable {
             contentLabel.setWrapText(true);
             contentLabel.getStyleClass().add("post_content");
 
-            postContainer.getChildren().addAll( ownerContainer, contentLabel);
+            //adding the like button and the number of likes
+            HBox likeContainer = new HBox();
+            likeContainer.getStyleClass().add("post_like_container");
+            Button likeButton = new Button("Like");
+            likeButton.getStyleClass().add("post_like");
+            boolean isLiked = likesRepository.checkLike(AppState.currentUser, post.id);
+            if (isLiked) {
+                likeButton.setStyle("-fx-background-color: #1a91da; -fx-text-fill: white;");
+            }
+            int likesCount = likesRepository.getCount(post.id);
+            Label likeCountLabel = new Label(likesCount + " like" + (likesCount > 1 ? "s" : ""));
+            likeCountLabel.getStyleClass().add("post_like_count");
+            //setting the onclick event for the like button
+            likeButton.setOnAction(event -> {
+                //checking if the user has already liked the post
+                boolean isLiked1 = likesRepository.checkLike(AppState.currentUser, post.id);
+                if (!isLiked1) { //adding the like
+                    int likeResult = likesRepository.addLike(AppState.currentUser, post.id);
+                    likeButton.setStyle("-fx-background-color: #1a91da; -fx-text-fill: white;");
+                    //updating the number of likes and avoiding requesting the database again
+                    String count = plusOne(likeCountLabel.getText().split(" ")[0]);
+                    likeCountLabel.setText(count + " like" + (Integer.parseInt(count) > 1 ? "s" : ""));
+                } else { //canceling the like
+                    likesRepository.cancelLike(AppState.currentUser, post.id);
+                    likeButton.setStyle("-fx-background-color: #eeeeee; -fx-text-fill: black;");
+                    //updating the number of likes and avoiding requesting the database again
+                    String count = minusOne(likeCountLabel.getText().split(" ")[0]);
+                    likeCountLabel.setText(count + " like" + (Integer.parseInt(count) > 1 ? "s" : ""));
+                }
+            });
+
+            //adding all elements to the post container
+            likeContainer.getChildren().addAll(likeButton, likeCountLabel);
+            postContainer.getChildren().addAll(ownerContainer, contentLabel, likeContainer);
             allPostsContainer.getChildren().add(postContainer);
         }
         postScrollPane.setContent(allPostsContainer);
         postScrollPane.setFitToWidth(true);
     }
 
-    public void redirectToLoginPage(){
+    public void redirectToLoginPage() {
         try {
             // Load the home view FXML file
             FXMLLoader loader = new FXMLLoader();
@@ -120,7 +155,7 @@ public class FeedsController implements Initializable {
     }
 
 
-    public void openProfile(int id){
+    public void openProfile(int id) {
         AppState.stateVisitedUser(id);
         try {
             // Load the home view FXML file
@@ -186,6 +221,26 @@ public class FeedsController implements Initializable {
             currentStage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static String plusOne(String number) {
+        try {
+            int num = Integer.parseInt(number);
+            num++;
+            return String.valueOf(num);
+        } catch (Exception e) {
+            return number;
+        }
+    }
+
+    public static String minusOne(String number) {
+        try {
+            int num = Integer.parseInt(number);
+            num--;
+            return num >= 0 ? String.valueOf(num) : "0";
+        } catch (Exception e) {
+            return number;
         }
     }
 }

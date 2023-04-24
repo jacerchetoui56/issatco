@@ -3,7 +3,9 @@ package com.example.feedy.controllers;
 import com.example.feedy.AppState;
 import com.example.feedy.Main;
 import com.example.feedy.Message;
+import com.example.feedy.User;
 import com.example.feedy.repositories.MessagesRepository;
+import com.example.feedy.repositories.UsersRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +26,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class GroupChatController implements Initializable {
@@ -35,7 +39,8 @@ public class GroupChatController implements Initializable {
     @FXML
     private TextField input_field;
     MessagesRepository messagesRepository = new MessagesRepository();
-
+    UsersRepository usersRepository = new UsersRepository();
+    private VBox allMessagesContainer = new VBox();
 
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
@@ -67,46 +72,15 @@ public class GroupChatController implements Initializable {
 
 
     public void initializeMessages() {
-        VBox allMessagesContainer = new VBox();
         allMessagesContainer.getStyleClass().add("all_messages_container");
-
-        MessagesRepository messagesRepository = new MessagesRepository();
         List<Message> messages = messagesRepository.getAllMessages();
         for (Message message : messages) {
-            HBox messageBlock = new HBox();
-            messageBlock.getStyleClass().add("message_block");
-            HBox.setMargin(messageBlock, new Insets(0, 0, 10, 0));
-            if (message.sender.id == AppState.currentUser) {
-                messageBlock.setAlignment(Pos.CENTER_RIGHT);
-            } else {
-                messageBlock.setAlignment(Pos.CENTER_LEFT);
-            }
-            VBox messageContainer = new VBox();
-            HBox header = new HBox();
-            Label date = new Label(ProfileController.formatDate(message.date));
-            Label senderLabel = new Label(message.sender.username);
-            senderLabel.setOnMouseClicked(event -> openProfile(message.sender.id));
-            header.getChildren().addAll(senderLabel, date);
-            Text messageLabel = new Text(message.message);
-            messageLabel.setFont(Font.font("System Regular", 15));
-            //setting the color
-            messageLabel.setFill(AppState.currentUser == message.sender.id ? Color.rgb(255,255,255) : Color.rgb(0, 0, 0));
-            messageLabel.wrappingWidthProperty().bind(allMessagesContainer.widthProperty().subtract(200));
-
-// adding classes depending on the user
-            messageContainer.getStyleClass().add(AppState.currentUser == message.sender.id ? "message_container_sender" : "message_container_receiver");
-            senderLabel.getStyleClass().add(AppState.currentUser == message.sender.id ? "sender" : "receiver");
-            messageLabel.getStyleClass().add(AppState.currentUser == message.sender.id ? "message_sender" : "message_receiver");
-            date.getStyleClass().add(AppState.currentUser == message.sender.id ? "date_sender" : "date_receiver");
-
-            messageContainer.getChildren().addAll(header, messageLabel);
-//            messageContainer.maxWidthProperty().bind(messageBlock.widthProperty().multiply(0.7));
-            messageBlock.getChildren().add(messageContainer);
-            allMessagesContainer.getChildren().add(messageBlock);
+            addNewMessage(message);
         }
         messagesScrollPane.setFitToWidth(true);
         messagesScrollPane.setFitToHeight(true);
         messagesScrollPane.setContent(allMessagesContainer);
+        //scroll to the bottom
         messagesScrollPane.setVvalue(1.0);
     }
 
@@ -130,13 +104,60 @@ public class GroupChatController implements Initializable {
 
     @FXML
     void sendMessage(ActionEvent event) {
+        //making sure the message is not empty
         String text = input_field.getText().trim();
         if (text.isEmpty()) {
             return;
         }
+
+        //WE ARE DOING ALL OF THIS TO AVOID RETRIEVING ALL THE MESSAGES EVERY TIME FROM THE DATABASE
         messagesRepository.sendMessage(AppState.currentUser, input_field.getText());
+        //add the new message to the view
+        //getting the username from the db
+        User user  = usersRepository.getUser(AppState.currentUser);
+        //creating the timestamp
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(now);
+        //creating the message
+        Message message = new Message(AppState.currentUser,user,  input_field.getText(), timestamp.toString());
+        addNewMessage(message);
+
+        messagesScrollPane.setVvalue(1.0);
         input_field.setText("");
-        initializeMessages();
+    }
+
+    void addNewMessage(Message message ){
+        HBox messageBlock = new HBox();
+        messageBlock.getStyleClass().add("message_block");
+//        HBox.setMargin(messageBlock, new Insets(0, 0, 10, 0));
+        if (message.sender.id == AppState.currentUser) {
+            messageBlock.setAlignment(Pos.CENTER_RIGHT);
+        } else {
+            messageBlock.setAlignment(Pos.CENTER_LEFT);
+        }
+        VBox messageContainer = new VBox();
+        HBox header = new HBox();
+        Label date = new Label(ProfileController.formatDate(message.date));
+        Label senderLabel = new Label(message.sender.username);
+        senderLabel.setOnMouseClicked(event -> openProfile(message.sender.id));
+        header.getChildren().addAll(senderLabel, date);
+        Text messageLabel = new Text(message.message);
+        messageLabel.setFont(Font.font("System Regular", 15));
+        //setting the color
+        messageLabel.setFill(AppState.currentUser == message.sender.id ? Color.rgb(255,255,255) : Color.rgb(0, 0, 0));
+        messageLabel.wrappingWidthProperty().bind(allMessagesContainer.widthProperty().subtract(250));
+
+// adding classes depending on the user
+        messageContainer.getStyleClass().add(AppState.currentUser == message.sender.id ? "message_container_sender" : "message_container_receiver");
+        senderLabel.getStyleClass().add(AppState.currentUser == message.sender.id ? "sender" : "receiver");
+        messageLabel.getStyleClass().add(AppState.currentUser == message.sender.id ? "message_sender" : "message_receiver");
+        date.getStyleClass().add(AppState.currentUser == message.sender.id ? "date_sender" : "date_receiver");
+
+        messageContainer.getChildren().addAll(header, messageLabel);
+//      messageContainer.maxWidthProperty().bind(messageBlock.widthProperty().multiply(0.7));
+        messageBlock.getChildren().add(messageContainer);
+
+        allMessagesContainer.getChildren().add(messageBlock);
     }
 }
 

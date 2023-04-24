@@ -14,7 +14,7 @@ public class MyConnexion {
             System.out.println("erreur: " + e.getMessage());
         }
 
-        String url = "jdbc:mysql://localhost/feedy";
+        String url = "jdbc:mysql://localhost/issatco";
         String user = "root";
         String mp = "";
         try {

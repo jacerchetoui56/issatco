@@ -58,8 +58,8 @@ public class UsersRepository {
                 preparedStatement.setString(1, username);
                 preparedStatement.setString(2, email);
                 preparedStatement.setString(3, password);
-                preparedStatement.setString(4, profile_picture);
-                preparedStatement.setString(5, bio);
+                preparedStatement.setString(4, bio);
+                preparedStatement.setString(5, profile_picture);
                 System.out.println(username + " created with success");
                 int result = preparedStatement.executeUpdate();
                 ResultSet generatedKeys = preparedStatement.getGeneratedKeys();

@@ -28,7 +28,6 @@ public class Main extends Application {
         }
         Image image = new Image(localUrl);
         stage.getIcons().add(image);
-
         stage.setScene(loginScene);
         stage.show();
     }

@@ -176,4 +176,21 @@ public class PersonalProfileController implements Initializable {
     }
 
 
+    @FXML
+    void openCreatePostView(ActionEvent event) {
+        try {
+            // Load the home view FXML file
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("create_post_view.fxml"));
+            root = loader.load();
+            // Create a new scene and set it on the stage
+            Scene homeViewScene = new Scene(root);
+            Stage currentStage = (Stage) usernameLabel.getScene().getWindow(); // get the current stage
+            currentStage.setScene(homeViewScene);
+            currentStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

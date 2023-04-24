@@ -17,7 +17,10 @@
          <children>
             <TextField fx:id="emailField" layoutX="45.0" layoutY="151.0" prefHeight="32.0" prefWidth="217.0" promptText="Enter you Email" styleClass="input_field" />
             <TextField fx:id="passwordField" layoutX="45.0" layoutY="193.0" prefHeight="32.0" prefWidth="217.0" promptText="Enter your password" styleClass="input_field" />
-            <Label layoutX="201.0" layoutY="323.0" styleClass="register_link" text="Register" underline="true" />
+            <Label layoutX="201.0" layoutY="323.0" onMouseClicked="#openRegisterPage" styleClass="register_link" text="Register" underline="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Label>
             <Label layoutX="45.0" layoutY="324.0" text="You don't have an account ?" textFill="#656565" />
             <Button layoutX="45.0" layoutY="260.0" mnemonicParsing="false" onAction="#login" prefHeight="33.0" prefWidth="217.0" styleClass="loginbtn" text="LOGIN">
                <font>

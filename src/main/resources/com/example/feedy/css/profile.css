@@ -58,3 +58,17 @@ post_owner_container {
     -fx-background-color: #fff;
     -fx-padding: 0;
 }
+
+.post_like {
+    -fx-background-color: #EEEEEE;
+    -fx-text-fill: #000;
+    -fx-padding: 7px;
+    -fx-font-size: 15px;
+    -fx-cursor: hand;
+}
+
+.post_like_count {
+    -fx-text-fill: #000;
+    -fx-padding: 7px 7px 7px 15px;
+    -fx-font-size: 15px;
+}

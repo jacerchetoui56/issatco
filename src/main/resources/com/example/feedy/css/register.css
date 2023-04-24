@@ -24,8 +24,8 @@
     -fx-border-radius: 5px;
     -fx-border-color: #ccc;
     -fx-border-width: 1px;
-    -fx-padding: 5px;
-    -fx-font-size: 12px;
+    -fx-padding: 6px;
+    -fx-font-size: 14px;
 }
 
 .signup_link{
@@ -62,9 +62,9 @@
 }
 
 
-.loginbtn {
+.signupbtn {
     -fx-padding: 7px 20px;
-    -fx-pref-width: 217px;
+    -fx-pref-width: 271px;
     -fx-alignment: center;
     -fx-background-radius: 16px;
     -fx-background-color: #5bc0f6;

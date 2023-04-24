@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -14,20 +15,26 @@
    <children>
       <Pane layoutX="306.0" prefHeight="450.0" prefWidth="394.0" styleClass="main_pane">
          <children>
-            <TextField fx:id="nameField" layoutX="45.0" layoutY="97.0" prefHeight="32.0" prefWidth="217.0" promptText="Enter you Name" styleClass="input_field" />
-            <TextField fx:id="emailField" layoutX="45.0" layoutY="142.0" prefHeight="32.0" prefWidth="217.0" promptText="Enter your Email" styleClass="input_field" />
-            <Label layoutX="211.0" layoutY="388.0" styleClass="register_link" text="Login" underline="true" />
+            <TextField fx:id="nameField" layoutX="45.0" layoutY="97.0" prefHeight="34.0" prefWidth="271.0" promptText="Enter you Name" styleClass="input_field" />
+            <TextField fx:id="emailField" layoutX="45.0" layoutY="142.0" prefHeight="34.0" prefWidth="271.0" promptText="Enter your Email" styleClass="input_field" />
+            <Label layoutX="211.0" layoutY="388.0" onMouseClicked="#openLoginPage" styleClass="register_link" text="Login" underline="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Label>
             <Label layoutX="45.0" layoutY="389.0" text="You already have an account ?" textFill="#656565" />
-            <Button fx:id="signupButton" layoutX="45.0" layoutY="338.0" mnemonicParsing="false" onAction="#signup" prefHeight="33.0" prefWidth="217.0" styleClass="loginbtn" text="SIGN UP">
+            <Button fx:id="signupButton" layoutX="45.0" layoutY="338.0" mnemonicParsing="false" onAction="#signup" prefHeight="33.0" prefWidth="264.0" styleClass="signupbtn" text="SIGN UP">
                <font>
                   <Font size="14.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Label fx:id="loginLink" layoutX="54.0" layoutY="8.0" onMouseClicked="#openLoginPage" prefHeight="39.0" prefWidth="43.0" styleClass="login_link" text="Login" />
             <Label layoutX="115.0" layoutY="8.0" styleClass="signup_link" text="Sign Up" />
-            <TextField fx:id="passwordField" layoutX="45.0" layoutY="186.0" prefHeight="32.0" prefWidth="217.0" promptText="Enter your password" styleClass="input_field" />
-            <TextField fx:id="bioField" layoutX="45.0" layoutY="229.0" prefHeight="32.0" prefWidth="217.0" promptText="Enter your Bio" styleClass="input_field" />
-            <TextField fx:id="pictureField" layoutX="45.0" layoutY="275.0" prefHeight="32.0" prefWidth="217.0" promptText="Enter your Profile Picture" styleClass="input_field" />
+            <TextField fx:id="passwordField" layoutX="45.0" layoutY="186.0" prefHeight="34.0" prefWidth="271.0" promptText="Enter your password" styleClass="input_field" />
+            <TextField fx:id="bioField" layoutX="45.0" layoutY="229.0" prefHeight="34.0" prefWidth="271.0" promptText="Enter your Bio" styleClass="input_field" />
+            <TextField fx:id="pictureField" layoutX="45.0" layoutY="275.0" prefHeight="34.0" prefWidth="271.0" promptText="Enter your Profile Picture" styleClass="input_field" />
          </children>
       </Pane>
       <Pane prefHeight="450.0" prefWidth="306.0" styleClass="left_pane">

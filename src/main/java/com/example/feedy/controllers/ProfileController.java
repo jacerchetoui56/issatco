@@ -4,6 +4,7 @@ import com.example.feedy.AppState;
 import com.example.feedy.Main;
 import com.example.feedy.User;
 import com.example.feedy.Post;
+import com.example.feedy.repositories.LikesRepository;
 import com.example.feedy.repositories.PostRepository;
 import com.example.feedy.repositories.UsersRepository;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -45,6 +47,7 @@ public class ProfileController implements Initializable {
     private ScrollPane postScrollPane;
     PostRepository postRepository = new PostRepository();
     UsersRepository usersRepository = new UsersRepository();
+    LikesRepository likesRepository = new LikesRepository();
 
 
     @Override
@@ -129,7 +132,36 @@ public class ProfileController implements Initializable {
             contentLabel.setWrapText(true);
             contentLabel.getStyleClass().add("post_content");
 
-            postContainer.getChildren().addAll( ownerContainer, contentLabel);
+            //adding the like button and the number of likes
+            HBox likeContainer = new HBox();
+            likeContainer.getStyleClass().add("post_like_container");
+            Button likeButton = new Button("Like");
+            likeButton.getStyleClass().add("post_like");
+            boolean isLiked = likesRepository.checkLike(AppState.currentUser, post.id);
+            if (isLiked) {
+                likeButton.setStyle("-fx-background-color: #1a91da; -fx-text-fill: white;");
+            }
+            Label likeCountLabel = new Label(likesRepository.getCount(post.id) + " likes");
+            likeCountLabel.getStyleClass().add("post_like_count");
+            //setting the onclick event for the like button
+            likeButton.setOnAction(event -> {
+                //checking if the user has already liked the post
+                boolean isLiked1 = likesRepository.checkLike(AppState.currentUser, post.id);
+                if (!isLiked1) { //adding the like
+                    int likeResult = likesRepository.addLike(AppState.currentUser, post.id);
+                    likeButton.setStyle("-fx-background-color: #1a91da; -fx-text-fill: white;");
+                    //updating the number of likes and avoiding requesting the database again
+                    likeCountLabel.setText(FeedsController.plusOne(likeCountLabel.getText().split(" ")[0]) + " likes");
+                } else { //canceling the like
+                    likesRepository.cancelLike(AppState.currentUser, post.id);
+                    likeButton.setStyle("-fx-background-color: #eeeeee; -fx-text-fill: black;");
+                    //updating the number of likes and avoiding requesting the database again
+                    likeCountLabel.setText(FeedsController.minusOne(likeCountLabel.getText().split(" ")[0]) + " likes");
+                }
+            });
+
+            likeContainer.getChildren().addAll(likeButton, likeCountLabel);
+            postContainer.getChildren().addAll( ownerContainer, contentLabel, likeContainer);
             allPostsContainer.getChildren().add(postContainer);
         }
         postScrollPane.setContent(allPostsContainer);
