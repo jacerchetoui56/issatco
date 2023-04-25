@@ -36,10 +36,18 @@
          </image>
       </ImageView>
       <TextField fx:id="input_field" layoutX="14.0" layoutY="461.0" prefHeight="32.0" prefWidth="698.0" promptText="Ecrire..." styleClass="input_field" />
-      <Button layoutX="721.0" layoutY="462.0" mnemonicParsing="false" onAction="#sendMessage" styleClass="sendbtn" text="Send">
+      <Button fx:id="sendbtn" layoutX="721.0" layoutY="462.0" mnemonicParsing="false" onAction="#sendMessage" styleClass="sendbtn" text="Send">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <ImageView fitHeight="41.0" fitWidth="32.0" layoutX="743.0" layoutY="7.0" onMouseClicked="#backToHome" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/back.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
    </children>
 </AnchorPane>

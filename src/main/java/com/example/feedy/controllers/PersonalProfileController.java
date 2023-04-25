@@ -4,6 +4,7 @@ import com.example.feedy.AppState;
 import com.example.feedy.Main;
 import com.example.feedy.Post;
 import com.example.feedy.User;
+import com.example.feedy.repositories.LikesRepository;
 import com.example.feedy.repositories.PostRepository;
 import com.example.feedy.repositories.UsersRepository;
 import javafx.event.ActionEvent;
@@ -18,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -44,6 +46,7 @@ public class PersonalProfileController implements Initializable {
     @FXML
     private Label usernameLabel;
     PostRepository postRepository = new PostRepository();
+    LikesRepository likesRepository = new LikesRepository();
 
 
 
@@ -67,7 +70,7 @@ public class PersonalProfileController implements Initializable {
         intitiazePosts();
     }
     @FXML
-    void backToHome(ActionEvent event) {
+    void backToHome(MouseEvent event) {
         try {
             // Load the home view FXML file
             FXMLLoader loader = new FXMLLoader();
@@ -135,6 +138,12 @@ public class PersonalProfileController implements Initializable {
             buttonsContainer.setPrefHeight(30);
             buttonsContainer.setPrefWidth(100);
             buttonsContainer.setPadding(new Insets(0, 0, 0, 10));
+            //the number of likes
+            int likesCount = likesRepository.getCount(post.id);
+            Label likeCountLabel = new Label(likesCount + " like" + (likesCount > 1 ? "s" : ""));
+            likeCountLabel.getStyleClass().add("post_like_count");
+            HBox.setMargin(likeCountLabel, new Insets(0, 5, 0, 0));
+
             //adding the delete button
             Button deleteButton = new Button("Delete");
             deleteButton.getStyleClass().add("delete_button");
@@ -148,7 +157,7 @@ public class PersonalProfileController implements Initializable {
                 AppState.statePostToUpdate(post.id);
                 goToModifyPostPage();
             });
-            buttonsContainer.getChildren().addAll(deleteButton, modifyButton);
+            buttonsContainer.getChildren().addAll(likeCountLabel ,deleteButton, modifyButton);
 
             //adding all the items of the post to the post container
             postContainer.getChildren().addAll( ownerContainer, contentLabel, buttonsContainer);
@@ -177,7 +186,7 @@ public class PersonalProfileController implements Initializable {
 
 
     @FXML
-    void openCreatePostView(ActionEvent event) {
+    void openCreatePostView(MouseEvent event) {
         try {
             // Load the home view FXML file
             FXMLLoader loader = new FXMLLoader();
@@ -186,6 +195,28 @@ public class PersonalProfileController implements Initializable {
             // Create a new scene and set it on the stage
             Scene homeViewScene = new Scene(root);
             Stage currentStage = (Stage) usernameLabel.getScene().getWindow(); // get the current stage
+            currentStage.setScene(homeViewScene);
+            currentStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void logout(MouseEvent event){
+        AppState.stateLogout();
+        redirectToLoginPage();
+    }
+
+    private void redirectToLoginPage() {
+        try {
+            // Load the home view FXML file
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("login_view.fxml"));
+            root = loader.load();
+            // Create a new scene and set it on the stage
+            Scene homeViewScene = new Scene(root);
+            Stage currentStage = (Stage) postScrollPane.getScene().getWindow(); // get the current stage
             currentStage.setScene(homeViewScene);
             currentStage.show();
         } catch (IOException e) {

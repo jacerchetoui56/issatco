@@ -26,8 +26,6 @@ public class UpdatePostController implements Initializable {
     @FXML
     private Label errorMessage;
 
-    @FXML
-    private Button logoutButton;
 
     @FXML
     private TextArea postContent;
@@ -46,8 +44,12 @@ public class UpdatePostController implements Initializable {
 
     @FXML
     void updatePost(ActionEvent event) {
+        if(postContent.getText().isEmpty()){
+            errorMessage.setText("Please enter a valid post");
+            return;
+        }
         postRepository.updatePost(AppState.postToUpdate, postContent.getText());
-        backToPersonalProfile();
+        backToPersonalProfile(null);
     }
 
     @FXML
@@ -59,7 +61,7 @@ public class UpdatePostController implements Initializable {
             root = loader.load();
             // Create a new scene and set it on the stage
             Scene homeViewScene = new Scene(root);
-            Stage currentStage = (Stage) logoutButton.getScene().getWindow(); // get the current stage
+            Stage currentStage = (Stage) postContent.getScene().getWindow(); // get the current stage
             currentStage.setScene(homeViewScene);
             currentStage.show();
         } catch (IOException e) {
@@ -67,7 +69,8 @@ public class UpdatePostController implements Initializable {
         }
     }
 
-    public void backToPersonalProfile(){
+    @FXML
+    public void backToPersonalProfile(MouseEvent event){
         try {
             // Load the home view FXML file
             FXMLLoader loader = new FXMLLoader();
@@ -75,7 +78,7 @@ public class UpdatePostController implements Initializable {
             root = loader.load();
             // Create a new scene and set it on the stage
             Scene homeViewScene = new Scene(root);
-            Stage currentStage = (Stage) logoutButton.getScene().getWindow(); // get the current stage
+            Stage currentStage = (Stage) postContent.getScene().getWindow(); // get the current stage
             currentStage.setScene(homeViewScene);
             currentStage.show();
         } catch (IOException e) {

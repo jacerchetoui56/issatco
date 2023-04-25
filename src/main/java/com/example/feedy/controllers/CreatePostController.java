@@ -40,6 +40,14 @@ public class CreatePostController implements Initializable {
         postContent.textProperty().addListener((observable, oldValue, newValue) -> {
             postContent.setScrollTop(Double.MAX_VALUE);
         });
+        //enter key
+        postContent.setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case ENTER:
+                    createPost(null);
+                    break;
+            }
+        });
     }
 
     @FXML
@@ -77,7 +85,7 @@ public class CreatePostController implements Initializable {
     }
 
     @FXML
-    void logout(ActionEvent event) {
+    void logout(MouseEvent event) {
         AppState.stateLogout();
         goToHomePage(null);
     }

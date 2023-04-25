@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -33,15 +34,13 @@ public class FeedsController implements Initializable {
 
 
     @FXML
-    private Button logoutButton;
-    @FXML
     private ScrollPane postScrollPane;
     PostRepository postRepository = new PostRepository();
     LikesRepository likesRepository = new LikesRepository();
 
 
     @FXML
-    void logout(ActionEvent event) {
+    void logout(MouseEvent event) {
         AppState.stateLogout();
         redirectToLoginPage();
     }
@@ -78,15 +77,15 @@ public class FeedsController implements Initializable {
             ownerContainer.getChildren().add(imageView);
             //making the vbox where the writer and the date go
             VBox writerContainer = new VBox();
+            //adding a left margin to the vbox
             writerContainer.getStyleClass().add("post_writer_container");
             //making the username
             Label writerLabel = new Label(post.user.username);
             writerLabel.getStyleClass().add("post_owner");
-            writerContainer.getChildren().add(writerLabel);
             //making the date
             Label dateLabel = new Label(ProfileController.formatDate(post.created_at));
             dateLabel.getStyleClass().add("post_date");
-            writerContainer.getChildren().add(dateLabel);
+            writerContainer.getChildren().addAll(writerLabel, dateLabel);
             ownerContainer.getChildren().add(writerContainer);
 
             //the name of the owner is a link to his profile
@@ -146,7 +145,7 @@ public class FeedsController implements Initializable {
             root = loader.load();
             // Create a new scene and set it on the stage
             Scene homeViewScene = new Scene(root);
-            Stage currentStage = (Stage) logoutButton.getScene().getWindow(); // get the current stage
+            Stage currentStage = (Stage) postScrollPane.getScene().getWindow(); // get the current stage
             currentStage.setScene(homeViewScene);
             currentStage.show();
         } catch (IOException e) {
@@ -164,7 +163,7 @@ public class FeedsController implements Initializable {
             root = loader.load();
             // Create a new scene and set it on the stage
             Scene homeViewScene = new Scene(root);
-            Stage currentStage = (Stage) logoutButton.getScene().getWindow(); // get the current stage
+            Stage currentStage = (Stage) postScrollPane.getScene().getWindow(); // get the current stage
             currentStage.setScene(homeViewScene);
             currentStage.show();
         } catch (IOException e) {
@@ -174,7 +173,7 @@ public class FeedsController implements Initializable {
 
 
     @FXML
-    void openCreatePostView(ActionEvent event) {
+    void openCreatePostView(MouseEvent event) {
         try {
             // Load the home view FXML file
             FXMLLoader loader = new FXMLLoader();
@@ -182,7 +181,7 @@ public class FeedsController implements Initializable {
             root = loader.load();
             // Create a new scene and set it on the stage
             Scene homeViewScene = new Scene(root);
-            Stage currentStage = (Stage) logoutButton.getScene().getWindow(); // get the current stage
+            Stage currentStage = (Stage) postScrollPane.getScene().getWindow(); // get the current stage
             currentStage.setScene(homeViewScene);
             currentStage.show();
         } catch (IOException e) {
@@ -191,7 +190,7 @@ public class FeedsController implements Initializable {
     }
 
     @FXML
-    void openPesonalProfile(ActionEvent event) {
+    void openPersonalProfile(MouseEvent event) {
         try {
             // Load the home view FXML file
             FXMLLoader loader = new FXMLLoader();
@@ -199,7 +198,7 @@ public class FeedsController implements Initializable {
             root = loader.load();
             // Create a new scene and set it on the stage
             Scene homeViewScene = new Scene(root);
-            Stage currentStage = (Stage) logoutButton.getScene().getWindow(); // get the current stage
+            Stage currentStage = (Stage) postScrollPane.getScene().getWindow(); // get the current stage
             currentStage.setScene(homeViewScene);
             currentStage.show();
         } catch (IOException e) {
@@ -208,7 +207,7 @@ public class FeedsController implements Initializable {
     }
 
     @FXML
-    void goToGroupChat(ActionEvent event) {
+    void goToGroupChat(MouseEvent event) {
         try {
             // Load the home view FXML file
             FXMLLoader loader = new FXMLLoader();
@@ -216,7 +215,7 @@ public class FeedsController implements Initializable {
             root = loader.load();
             // Create a new scene and set it on the stage
             Scene homeViewScene = new Scene(root);
-            Stage currentStage = (Stage) logoutButton.getScene().getWindow(); // get the current stage
+            Stage currentStage = (Stage) postScrollPane.getScene().getWindow(); // get the current stage
             currentStage.setScene(homeViewScene);
             currentStage.show();
         } catch (IOException e) {

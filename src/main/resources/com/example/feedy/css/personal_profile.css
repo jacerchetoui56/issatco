@@ -29,7 +29,9 @@
 post_owner_container {
     -fx-padding: 10px;
 }
-
+.post_writer_container{
+    -fx-padding: 0 0 0 15px;
+}
 .homebtn {
     -fx-background-color: #eeeeee;
     -fx-text-fill: #000000;
@@ -83,4 +85,10 @@ post_owner_container {
     -fx-border-color: transparent;
     -fx-font-size: 14px;
     /*-fx-font-weight: bold;*/
+}
+
+.post_like_count {
+    -fx-text-fill: #000;
+    -fx-padding: 3px 7px;
+    -fx-font-size: 15px;
 }

@@ -58,6 +58,9 @@ post_owner_container {
     -fx-background-color: #fff;
 }
 
+.post_writer_container{
+    -fx-padding: 0 0 0 15px;
+}
 .new_post {
     -fx-padding: 7px;
     -fx-pref-width: 150px;

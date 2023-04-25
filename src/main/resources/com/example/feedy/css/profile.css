@@ -66,6 +66,9 @@ post_owner_container {
     -fx-font-size: 15px;
     -fx-cursor: hand;
 }
+.post_writer_container{
+    -fx-padding: 0 0 0 15px;
+}
 
 .post_like_count {
     -fx-text-fill: #000;

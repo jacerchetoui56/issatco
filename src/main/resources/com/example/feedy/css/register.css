@@ -27,6 +27,11 @@
     -fx-padding: 6px;
     -fx-font-size: 14px;
 }
+.input_field.error{
+    -fx-border-color: #f00;
+    -fx-border-width: 2px;
+
+}
 
 .signup_link{
     -fx-font-family: sans-serif;
@@ -64,7 +69,7 @@
 
 .signupbtn {
     -fx-padding: 7px 20px;
-    -fx-pref-width: 271px;
+    -fx-pref-width: 261px;
     -fx-alignment: center;
     -fx-background-radius: 16px;
     -fx-background-color: #5bc0f6;
@@ -72,4 +77,14 @@
     -fx-border-color: transparent;
     -fx-font-size: 12px;
     -fx-font-weight: bold;
+}
+
+.filechooser{
+    -fx-background-color: #eeeeee;
+    -fx-text-fill: #000;
+    -fx-font-size: 14px;
+    -fx-padding: 7px 20px;
+    -fx-pref-width: 261px;
+    -fx-alignment: center;
+    -fx-border-color: transparent;
 }

@@ -10,15 +10,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.feedy.controllers.UpdatePostController">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" styleClass="all_container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.feedy.controllers.UpdatePostController">
    <children>
       <Button layoutX="66.0" layoutY="359.0" mnemonicParsing="false" onAction="#updatePost" styleClass="postbtn" text="Update">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <TextArea fx:id="postContent" layoutX="66.0" layoutY="182.0" prefHeight="156.0" prefWidth="500.0" styleClass="input_field" wrapText="true" />
-      <Label layoutX="72.0" layoutY="35.0" onMouseClicked="#goToHomePage" prefHeight="30.0" prefWidth="96.0" text="ISSATCO">
+      <TextArea fx:id="postContent" layoutX="66.0" layoutY="167.0" prefHeight="156.0" prefWidth="500.0" promptText="Share Your Thoughts With The Community" styleClass="input_field" wrapText="true" />
+      <Label layoutX="59.0" layoutY="17.0" onMouseClicked="#goToHomePage" prefHeight="30.0" prefWidth="96.0" text="ISSATCO">
          <font>
             <Font name="Microsoft YaHei Light" size="17.0" />
          </font>
@@ -26,17 +26,28 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Label>
-      <ImageView fitHeight="46.0" fitWidth="32.0" layoutX="34.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="46.0" fitWidth="32.0" layoutX="21.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/twitter.png" />
          </image>
       </ImageView>
-      <Button fx:id="logoutButton" layoutX="706.0" layoutY="30.0" mnemonicParsing="false" onAction="#logout" styleClass="logoutbtn" text="Logout" textFill="WHITE">
+      <Label fx:id="errorMessage" layoutX="66.0" layoutY="328.0" prefHeight="22.0" prefWidth="270.0" styleClass="error_message" />
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="747.0" layoutY="16.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/logout.png" />
+         </image>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
-      </Button>
-      <Label fx:id="errorMessage" layoutX="200.0" layoutY="316.0" styleClass="error_message" />
+      </ImageView>
+      <ImageView fitHeight="41.0" fitWidth="32.0" layoutX="702.0" layoutY="16.0" onMouseClicked="#backToPersonalProfile" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/back.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
    </children>
     <stylesheets>
         <URL value="@css/update_post.css" />
